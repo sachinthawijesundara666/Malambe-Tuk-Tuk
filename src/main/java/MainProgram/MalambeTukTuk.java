@@ -1,7 +1,15 @@
 package MainProgram;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-public class MalambeTukTuk {
-    public static void main(String[] args){
-        System.out.println("Hi");
+import java.io.IOException;
+
+public class MalambeTukTuk extends Application{
+    @Override
+    public void start(Stage stage) throws IOException{
+
     }
+
 }
