@@ -9,6 +9,7 @@ public class Products {
     String detail;
     String date;
     String picture;
+    String threshold;
 
     public Products(String code, String name, String brand, Double price, int quantity, String detail, String date, String picture){
         this.code = code;
@@ -19,12 +20,16 @@ public class Products {
         this.detail = detail;
         this.date = date;
         this.picture = picture;
+        if (this.quantity < 5){
+            this.threshold = "Low Stock";
+        }else this.threshold = "In Stock";
     }
 
     //Adds new row to txt file db
     public static void addProduct(String code, String name, String brand, Double price, int quantity, String detail, String date, String picture){
 
-        String line = code + ", " + name + ", " + brand + ", " + price + ", " + quantity + ", " + detail + ", " + date + ", " + picture;
+        Products product = new Products(code, name, brand, price, quantity, detail, date, picture);
+        String line = product.code + ", " + product.name + ", " + product.brand + ", " + product.price + ", " + product.quantity + ", " + product.detail + ", " + product.date + ", " + product.picture + ", " + product.threshold;
         TextFileManager textFileManager = new TextFileManager();
         textFileManager.append("inventory_legacy.txt", line);
     }
@@ -33,7 +38,7 @@ public class Products {
     public static Products[] load(){
 
         TextFileManager textFileManager = new TextFileManager();
-        String[] newlines = textFileManager.read("dealers_legacy.txt");
+        String[] newlines = textFileManager.read("inventory_legacy.txt");
 
         if (newlines != null) {
 
