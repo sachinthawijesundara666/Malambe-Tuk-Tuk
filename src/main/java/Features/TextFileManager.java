@@ -22,7 +22,8 @@ public class TextFileManager {
     }
 
     //Reading a Text File
-    public void read(String textfile){
+    public String[] read(String textfile){
+
         try {
             int count = 0;
             File file = new File("/Data/"+textfile);
@@ -32,12 +33,20 @@ public class TextFileManager {
                 scanner.nextLine();
                 count++;
             }
+            scanner.close();
+            String[] items = new String[count];
+
+            Scanner scanner1 = new Scanner(file);
 
             for (int i=0 ; i<count ; i++){
-                String[] item = new String[4];
+                String line = scanner1.nextLine();
+                items[i] = line;
             }
+            scanner1.close();
+            return items;
+
         } catch (FileNotFoundException e) {
-            return;
+            return null;
         }
     }
 
