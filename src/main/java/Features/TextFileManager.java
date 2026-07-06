@@ -50,4 +50,17 @@ public class TextFileManager {
         }
     }
 
+    //Overwritting to a text file
+    public boolean write(String textfile, String dataObjString){
+        try {
+            FileWriter writer = new FileWriter("/Data/"+textfile);
+            writer.write(dataObjString);
+            writer.close();
+            return true;
+
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
 }

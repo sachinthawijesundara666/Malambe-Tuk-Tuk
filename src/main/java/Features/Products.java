@@ -64,4 +64,45 @@ public class Products {
 
     }
 
+    //Deleting data
+    public static String delete(String code){
+        Products[] prodlist = load();
+
+        if (prodlist == null){
+            return "Empty";
+        }
+
+        TextFileManager textFileManager = new TextFileManager();
+        textFileManager.write("inventory_legacy.txt", "");
+
+        boolean found = false;
+
+        for (int i = 0 ; i<prodlist.length ; i++){
+
+            if (code.equals(prodlist[i].code)) {
+                found = true;
+                continue;
+            }
+            String line = prodlist[i].code + ", " +
+                        prodlist[i].name + ", " +
+                        prodlist[i].brand + ", " +
+                        prodlist[i].price + ", " +
+                        prodlist[i].quantity + ", " +
+                        prodlist[i].detail + ", " +
+                        prodlist[i].date + ", " +
+                        prodlist[i].picture + ", " +
+                        prodlist[i].threshold;
+
+            textFileManager.append("inventory_legacy.txt", line);
+
+        }
+        if (found){
+            return "Found";
+        }else return "Not_Found";
+    }
+
+    public String update(String Code){
+        return null;
+    }
+
 }
