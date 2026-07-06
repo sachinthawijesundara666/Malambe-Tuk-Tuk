@@ -11,7 +11,7 @@ public class Products {
     String picture;
     String threshold;
 
-    public Products(String code, String name, String brand, Double price, int quantity, String detail, String date, String picture){
+    public Products(String code, String name, String brand, double price, int quantity, String detail, String date, String picture){
         this.code = code;
         this.name = name;
         this.brand = brand;
@@ -25,13 +25,48 @@ public class Products {
         }else this.threshold = "In Stock";
     }
 
-    //Adds new row to txt file db
-    public static void addProduct(String code, String name, String brand, Double price, int quantity, String detail, String date, String picture){
+    //Validating Date input
+    public static String dateValidator(String date){
+        return null;
+    }
 
-        Products product = new Products(code, name, brand, price, quantity, detail, date, picture);
-        String line = product.code + ", " + product.name + ", " + product.brand + ", " + product.price + ", " + product.quantity + ", " + product.detail + ", " + product.date + ", " + product.picture + ", " + product.threshold;
-        TextFileManager textFileManager = new TextFileManager();
-        textFileManager.append("inventory_legacy.txt", line);
+    //Validating Code
+    public static String codeValidator(){
+        return null;
+    }
+
+
+    //Adds new row to txt file db
+    public static String addProduct(String code, String name, String brand, String price, String quantity, String detail, String date, String picture){
+        if (code != null && !code.isEmpty()){
+            double priceConv = 0d;
+            int quantityConv = 0;
+
+            //To make sure it converts empty string values correctly
+            try {
+
+                if (price != null && !price.isEmpty()) {
+                    priceConv = Double.parseDouble(price);
+                }
+
+                if (quantity != null && !quantity.isEmpty()) {
+                    quantityConv = Integer.parseInt(quantity);
+                }
+            }catch (NumberFormatException e){
+                return "NumberFormatError";
+            }
+
+            if (name.isEmpty()) {
+                return "NoName";
+            }
+
+            Products product = new Products(code, name, brand, priceConv, quantityConv, detail, date, picture);
+            String line = product.code + ", " + product.name + ", " + product.brand + ", " + product.price + ", " + product.quantity + ", " + product.detail + ", " + product.date + ", " + product.picture + ", " + product.threshold;
+            TextFileManager textFileManager = new TextFileManager();
+            textFileManager.append("inventory_legacy.txt", line);
+
+        }else return "NoCode";
+        return "Success";
     }
 
     //Loading all Data into objects
@@ -101,8 +136,91 @@ public class Products {
         }else return "Not_Found";
     }
 
-    public String update(String Code){
-        return null;
-    }
+    public static String update(String code, String name, String brand, String price, String quantity, String detail, String date, String picture){
+        Products[] prodlist = load();
 
+        if (prodlist == null){
+            return "Empty";
+        }
+
+        TextFileManager textFileManager = new TextFileManager();
+        textFileManager.write("inventory_legacy.txt", "");
+
+        boolean found = false;
+
+        double priceConv = 0d;
+        int quantityConv = 0;
+
+        //To make sure it converts empty string values correctly
+        try {
+
+            if (price != null && !price.isEmpty()) {
+                priceConv = Double.parseDouble(price);
+            }
+
+            if (quantity != null && !quantity.isEmpty()) {
+                quantityConv = Integer.parseInt(quantity);
+            }
+        }catch (NumberFormatException e){
+            return "NumberFormatError";
+        }
+
+        for (int i=0 ; i < prodlist.length ; i++){
+
+            if (code.equals(prodlist[i].code)) {
+                found = true;
+
+                if ( name != null && !name.isEmpty()){
+                    prodlist[i].name = name;
+                }
+
+                if ( brand != null && !brand.isEmpty()) {
+                    prodlist[i].brand = brand;
+                }
+
+                if (price != null && !price.isEmpty()) {
+                    prodlist[i].price = priceConv;
+                }
+
+                if (quantity != null && !quantity.isEmpty()) {
+                    prodlist[i].quantity = quantityConv;
+
+                    if (prodlist[i].quantity < 5) {
+                        prodlist[i].threshold = "Low Stock";
+                    } else {
+                        prodlist[i].threshold = "In Stock";
+                    }
+                }
+
+                if (detail != null && !detail.isEmpty()) {
+                    prodlist[i].detail = detail;
+                }
+
+                if (date != null && !date.isEmpty()) {
+                    prodlist[i].date = date;
+                }
+
+                if (picture != null && !picture.isEmpty()) {
+                    prodlist[i].picture = picture;
+                }
+
+            }
+            String line = prodlist[i].code + ", " +
+                    prodlist[i].name + ", " +
+                    prodlist[i].brand + ", " +
+                    prodlist[i].price + ", " +
+                    prodlist[i].quantity + ", " +
+                    prodlist[i].detail + ", " +
+                    prodlist[i].date + ", " +
+                    prodlist[i].picture + ", " +
+                    prodlist[i].threshold;
+
+            textFileManager.append("inventory_legacy.txt", line);
+        }
+        if (found){
+            return "Success";
+        }else return "NotFound";
+    }
 }
+
+

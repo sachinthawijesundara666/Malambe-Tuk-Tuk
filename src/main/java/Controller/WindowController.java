@@ -11,11 +11,16 @@ import java.io.IOException;
 public class WindowController {
 
     @FXML
-    private Label help;
+    protected void onHelpClick() throws IOException{
+        FXMLLoader fxmlLoader = new FXMLLoader(WindowController.class.getResource("/FXML/Help.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 600,400);
 
-    @FXML
-    protected void onHelpClick(){help.setText("Welcome!");
+        Stage stage = new Stage();
+        stage.setTitle("Help Page");
+        stage.setScene(scene);
+        stage.show();
     }
+
 
     //Opening a new Window for add section
     @FXML
@@ -28,7 +33,7 @@ public class WindowController {
         stage.setTitle("Add Items");
         stage.setScene(scene);
         stage.show();
-        }
+    }
 
     @FXML
     protected void onEditButtonClick() throws IOException{
@@ -39,19 +44,19 @@ public class WindowController {
         stage.setTitle("Update Items");
         stage.setScene(scene);
         stage.show();
-        }
+    }
 
     @FXML
     protected void onDeleteButtonClick() throws IOException{
     FXMLLoader fxmlLoader = new FXMLLoader(WindowController.class.getResource("/FXML/DeleteWindow.fxml"));
-    Scene scene = new Scene(fxmlLoader.load(), 600,400);
+    Scene scene = new Scene(fxmlLoader.load(), 400,125);
 
     Stage stage = new Stage();
     stage.setTitle("Delete Items");
     stage.setScene(scene);
     stage.show();
-        }
     }
+}
 
 
 

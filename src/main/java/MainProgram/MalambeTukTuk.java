@@ -2,9 +2,12 @@ package MainProgram;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 public class MalambeTukTuk extends Application{
 
@@ -13,6 +16,10 @@ public class MalambeTukTuk extends Application{
         FXMLLoader fxmlloader = new FXMLLoader(MalambeTukTuk.class.getResource("/FXML/MalambeTukTuk.fxml"));
         Scene scene =  new Scene(fxmlloader.load(), 819, 517);
         stage.setTitle("Malambe Tuk Tuk Spare Parts Inventory Manager");
+        InputStream icon = MalambeTukTuk.class.getResourceAsStream("/Additional/images.png");
+        if (icon!=null) {
+            stage.getIcons().add(new Image(icon));
+        }
         stage.setScene(scene);
         stage.show();
 
