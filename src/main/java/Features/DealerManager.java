@@ -1,19 +1,11 @@
 package Features;
 
-public class Dealers {
-    String code;
-    String name;
-    String contact;
-    String location;
+import Cleaner.Cleaner;
+import Cleaner.TextFileManager;
+import Model.Dealers;
 
-    public Dealers(String code, String name, String contact, String location){
-        this.code = code;
-        this.name = name;
-        this.contact = contact;
-        this.location = location;
-    }
-
-    public static Dealers [] read(){
+public class DealerManager {
+    public static Dealers[] read(){
         TextFileManager textFileManager = new TextFileManager();
         String[] newlines = textFileManager.read("dealers_legacy.txt");
 

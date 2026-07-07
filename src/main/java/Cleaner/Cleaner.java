@@ -1,4 +1,4 @@
-package Features;
+package Cleaner;
 
 public class Cleaner {
 
