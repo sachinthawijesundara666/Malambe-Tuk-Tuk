@@ -29,13 +29,14 @@ public class TextFileManager {
 
         try {
             int count = 0;
-            File file = new File("/Data/"+textfile);
+            File file = new File("/Data/" + textfile);
             Scanner scanner = new Scanner(file);
 
             while (scanner.hasNextLine()){
                 scanner.nextLine();
                 count++;
             }
+
             scanner.close();
             String[] items = new String[count];
 

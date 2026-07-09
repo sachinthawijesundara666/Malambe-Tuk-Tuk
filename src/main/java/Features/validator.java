@@ -5,14 +5,63 @@ import java.util.Locale;
 public class validator {
 
     //Validating Date input
-    public static String dateValidator(String date){
+    public static boolean dateValidator(String date) {
 
-        return null;
+        if (date == null || date.isEmpty()) {
+            return false;
+        }
+
+        String[] dateParts = date.split("/");
+
+        if (dateParts.length != 3) {
+            return false;
+        }
+
+        String yearStr = dateParts[0];
+        String monthStr = dateParts[1];
+        String dayStr = dateParts[2];
+
+        if (yearStr.length() != 4 || monthStr.length() != 2 || dayStr.length() != 2) {
+            return false;
+        }
+
+        int year;
+        int month;
+        int day;
+
+        try {
+            year = Integer.parseInt(yearStr);
+            month = Integer.parseInt(monthStr);
+            day = Integer.parseInt(dayStr);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+
+        if (month < 1 || month > 12) {
+            return false;
+        }
+
+        int[] daysOfMonth = {31,28,31,30,31,30,31,31,30,31,30,31};
+
+        // Leap year
+        if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
+            daysOfMonth[1] = 29;
+        }
+
+        if (day < 1 || day > daysOfMonth[month - 1]) {
+            return false;
+        }
+
+        return true;
     }
 
     //Validating Code
     public static boolean codeValidator(String Code){
-        if (Code == null || Code.length()!=4) {
+        if (Code == null || Code.isEmpty()) {
+            return false;
+        }
+
+        if ( Code.length()!=4){
             return false;
         }
 

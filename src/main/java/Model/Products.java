@@ -20,9 +20,6 @@ public class Products {
         this.detail = detail;
         this.date = date;
         this.picture = picture;
-        if (this.quantity < 5) {
-            this.threshold = "Low Stock";
-        } else this.threshold = "In Stock";
     }
 
     public String getCode() {
@@ -57,10 +54,6 @@ public class Products {
         return picture;
     }
 
-    public String getThreshold() {
-        return threshold;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -73,23 +66,13 @@ public class Products {
         this.price = price;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-
-        if (this.quantity < 5) {
-            this.threshold = "Low Stock";
-        } else {
-            this.threshold = "In Stock";
-        }
-    }
+    public void setQuantity(int quantity) {this.quantity = quantity;}
 
     public void setDetail(String detail) {
         this.detail = detail;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
+    public void setDate(String date) {this.date = date;}
 
     public void setPicture(String picture) {
         this.picture = picture;
