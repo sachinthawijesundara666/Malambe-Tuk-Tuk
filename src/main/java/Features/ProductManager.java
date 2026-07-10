@@ -27,6 +27,9 @@ public class ProductManager {
             if (quantityConv == null){
                 return "NumberFormatError";
             }
+            if (!validator.dateValidator(date)) {
+                return "DateFormatError";
+            }
 
             Products[] ProductList = load();
 
@@ -35,8 +38,8 @@ public class ProductManager {
             }
 
             boolean foundCode = false;
-            for (int i = 0 ; i< ProductList.length ; i++){
-                if (code.equals(ProductList[i].getCode())){
+            for (Products products : ProductList) {
+                if (code.equals(products.getCode())) {
                     foundCode = true;
                     break;
                 }
@@ -99,14 +102,14 @@ public class ProductManager {
         Products[] prodlist = load();
 
         if (prodlist == null){
-            return "Empty";
+            return "LoadingError";
         }
 
         boolean found = false;
 
-        for (int i = 0 ; i<prodlist.length ; i++) {
+        for (Products value : prodlist) {
 
-            if (code.equals(prodlist[i].getCode())) {
+            if (code.equals(value.getCode())) {
                 found = true;
                 break;
             }
@@ -119,20 +122,20 @@ public class ProductManager {
             if (!textFileManager.getWriteFlag()){
                 return "TextFileError";
             }
-            for (int i = 0 ; i<prodlist.length ; i++) {
+            for (Products products : prodlist) {
 
-                if (code.equals(prodlist[i].getCode())){
+                if (code.equals(products.getCode())) {
                     continue;
                 }
 
-                String line = prodlist[i].getCode() + ", " +
-                        prodlist[i].getName() + ", " +
-                        prodlist[i].getBrand() + ", " +
-                        prodlist[i].getPrice() + ", " +
-                        prodlist[i].getQuantity() + ", " +
-                        prodlist[i].getDetail() + ", " +
-                        prodlist[i].getDate() + ", " +
-                        prodlist[i].getPicture() + ", " ;
+                String line = products.getCode() + ", " +
+                        products.getName() + ", " +
+                        products.getBrand() + ", " +
+                        products.getPrice() + ", " +
+                        products.getQuantity() + ", " +
+                        products.getDetail() + ", " +
+                        products.getDate() + ", " +
+                        products.getPicture() ;
 
                 textFileManager.append("inventory_legacy.txt", line);
                 if (!textFileManager.getAppendFlag()) {
@@ -154,22 +157,22 @@ public class ProductManager {
         Products[] prodlist = load();
 
         if (prodlist == null) {
-            return "Empty";
+            return "LoadingError";
         }
 
         boolean found = false;
 
-        for (int i = 0; i < prodlist.length; i++) {
+        for (Products product : prodlist) {
 
-            if (code.equals(prodlist[i].getCode())) {
+            if (code.equals(product.getCode())) {
                 found = true;
 
                 if (name != null && !name.isEmpty()) {
-                    prodlist[i].setName(name);
+                    product.setName(name);
                 }
 
                 if (brand != null && !brand.isEmpty()) {
-                    prodlist[i].setBrand(brand);
+                    product.setBrand(brand);
                 }
 
                 if (price != null && !price.isEmpty()) {
@@ -177,7 +180,7 @@ public class ProductManager {
                     if (priceConv == null) {
                         return "NumberFormatError";
                     }
-                    prodlist[i].setPrice(priceConv);
+                    product.setPrice(priceConv);
                 }
 
                 if (quantity != null && !quantity.isEmpty()) {
@@ -185,22 +188,22 @@ public class ProductManager {
                     if (quantityConv == null) {
                         return "NumberFormatError";
                     }
-                    prodlist[i].setQuantity(quantityConv);
+                    product.setQuantity(quantityConv);
                 }
 
                 if (detail != null && !detail.isEmpty()) {
-                    prodlist[i].setDetail(detail);
+                    product.setDetail(detail);
                 }
 
                 if (date != null && !date.isEmpty()) {
-                    if (!validator.dateValidator(date)){
+                    if (!validator.dateValidator(date)) {
                         return "DateFormatError";
                     }
-                    prodlist[i].setDate(date);
+                    product.setDate(date);
                 }
 
                 if (picture != null && !picture.isEmpty()) {
-                    prodlist[i].setPicture(picture);
+                    product.setPicture(picture);
                 }
                 break;
             }
@@ -214,15 +217,15 @@ public class ProductManager {
                 return "TextFileError";
             }
 
-            for (int i = 0; i < prodlist.length; i++) {
-                String line = prodlist[i].getCode() + ", " +
-                        prodlist[i].getName() + ", " +
-                        prodlist[i].getBrand() + ", " +
-                        prodlist[i].getPrice() + ", " +
-                        prodlist[i].getQuantity() + ", " +
-                        prodlist[i].getDetail() + ", " +
-                        prodlist[i].getDate() + ", " +
-                        prodlist[i].getPicture() + ", ";
+            for (Products products : prodlist) {
+                String line = products.getCode() + ", " +
+                        products.getName() + ", " +
+                        products.getBrand() + ", " +
+                        products.getPrice() + ", " +
+                        products.getQuantity() + ", " +
+                        products.getDetail() + ", " +
+                        products.getDate() + ", " +
+                        products.getPicture();
 
                 textFileManager.append("inventory_legacy.txt", line);
                 if (!textFileManager.getAppendFlag()) {

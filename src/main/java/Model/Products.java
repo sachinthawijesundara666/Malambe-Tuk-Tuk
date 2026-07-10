@@ -9,7 +9,6 @@ public class Products {
     private String detail;
     private String date;
     private String picture;
-    private String threshold;
 
     public Products(String code, String name, String brand, double price, int quantity, String detail, String date, String picture) {
         this.code = code;
