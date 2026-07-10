@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MainController">
+   <left>
+      <VBox prefHeight="720.0" prefWidth="220.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#onHomeButtonClick" prefHeight="120.0" prefWidth="220.0" text="Home">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#onInventoryButtonClick" prefHeight="120.0" prefWidth="220.0" text="Inventory">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#onDealerButtonClick" prefHeight="120.0" prefWidth="220.0" text="Dealers">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#onCartButtonClick" prefHeight="120.0" prefWidth="220.0" text="Cart">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+         </children></VBox>
+   </left>
+   <center>
+      <StackPane fx:id="ContentPanel" prefHeight="720.0" prefWidth="1060.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>

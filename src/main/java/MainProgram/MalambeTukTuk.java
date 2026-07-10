@@ -12,8 +12,8 @@ public class MalambeTukTuk extends Application{
 
     @Override
     public void start(Stage stage) throws IOException{
-        FXMLLoader fxmlloader = new FXMLLoader(MalambeTukTuk.class.getResource("/FXML/MalambeTukTuk.fxml"));
-        Scene scene =  new Scene(fxmlloader.load(), 819, 517);
+        FXMLLoader fxmlloader = new FXMLLoader(MalambeTukTuk.class.getResource("/FXML/Main.fxml"));
+        Scene scene =  new Scene(fxmlloader.load(), 1280, 720);
         stage.setTitle("Malambe Tuk Tuk Spare Parts Inventory Manager");
         InputStream icon = MalambeTukTuk.class.getResourceAsStream("/Additional/images.png");
         if (icon!=null) {
