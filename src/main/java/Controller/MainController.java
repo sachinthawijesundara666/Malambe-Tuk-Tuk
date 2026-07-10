@@ -44,11 +44,6 @@ public class MainController {
 
     }
 
-    @FXML
-    private void initialize(){
-        loadWindow("/FXML/Home.fxml");
-    }
-
     public void SetButtonColorOnActive(Button button){
         homeBtn.getStyleClass().remove("active-button");
         inventoryBtn.getStyleClass().remove("active-button");
@@ -57,6 +52,14 @@ public class MainController {
 
         button.getStyleClass().add("active-button");
     }
+
+    @FXML
+    private void initialize(){
+        SetButtonColorOnActive(homeBtn);
+        loadWindow("/FXML/Home.fxml");
+    }
+
+
 
     @FXML
     private void onHomeButtonClick(){
