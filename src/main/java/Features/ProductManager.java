@@ -47,7 +47,7 @@ public class ProductManager {
 
             if (!foundCode){
                 Products product = new Products(code, name, brand, priceConv, quantityConv, detail, date, picture);
-                String line = product.getCode() + ", " + product.getName() + ", " + product.getBrand()+ ", " + product.getPrice() + ", " + product.getQuantity() + ", " + product.getDetail() + ", " + product.getDate() + ", " + product.getPicture();
+                String line = product.getCode() + ", " + product.getName() + ", " + product.getBrand()+ ", " + product.getPrice() + ", " + product.getQuantity() + ", " + product.getDetail() + ", " + product.getDate() + ", " + product.getPicture() + "\n";
                 TextFileManager textFileManager = new TextFileManager();
                 textFileManager.append("inventory_legacy.txt", line);
                 if (!textFileManager.getAppendFlag()){
@@ -90,7 +90,6 @@ public class ProductManager {
             }
         }
         return productlist;
-
     }
 
     //Deleting data
@@ -122,20 +121,20 @@ public class ProductManager {
             if (!textFileManager.getWriteFlag()){
                 return "TextFileError";
             }
-            for (Products products : prodlist) {
+            for (Products product : prodlist) {
 
-                if (code.equals(products.getCode())) {
+                if (code.equals(product.getCode())) {
                     continue;
                 }
 
-                String line = products.getCode() + ", " +
-                        products.getName() + ", " +
-                        products.getBrand() + ", " +
-                        products.getPrice() + ", " +
-                        products.getQuantity() + ", " +
-                        products.getDetail() + ", " +
-                        products.getDate() + ", " +
-                        products.getPicture() ;
+                String line = product.getCode() + ", " +
+                        product.getName() + ", " +
+                        product.getBrand() + ", " +
+                        product.getPrice() + ", " +
+                        product.getQuantity() + ", " +
+                        product.getDetail() + ", " +
+                        product.getDate() + ", " +
+                        product.getPicture() + "\n";
 
                 textFileManager.append("inventory_legacy.txt", line);
                 if (!textFileManager.getAppendFlag()) {
@@ -217,15 +216,15 @@ public class ProductManager {
                 return "TextFileError";
             }
 
-            for (Products products : prodlist) {
-                String line = products.getCode() + ", " +
-                        products.getName() + ", " +
-                        products.getBrand() + ", " +
-                        products.getPrice() + ", " +
-                        products.getQuantity() + ", " +
-                        products.getDetail() + ", " +
-                        products.getDate() + ", " +
-                        products.getPicture();
+            for (Products product : prodlist) {
+                String line = product.getCode() + ", " +
+                        product.getName() + ", " +
+                        product.getBrand() + ", " +
+                        product.getPrice() + ", " +
+                        product.getQuantity() + ", " +
+                        product.getDetail() + ", " +
+                        product.getDate() + ", " +
+                        product.getPicture() + "\n";
 
                 textFileManager.append("inventory_legacy.txt", line);
                 if (!textFileManager.getAppendFlag()) {

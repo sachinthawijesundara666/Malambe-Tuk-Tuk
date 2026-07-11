@@ -22,36 +22,34 @@ public class Products {
     }
 
     public String getCode() {
-        return code;
+        return this.code;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public String getBrand() {
-        return brand;
+        return this.brand;
     }
 
     public double getPrice() {
-        return price;
+        return this.price;
     }
 
     public int getQuantity() {
-        return quantity;
+        return this.quantity;
     }
 
     public String getDetail() {
-        return detail;
+        return this.detail;
     }
 
     public String getDate() {
-        return date;
+        return this.date;
     }
 
-    public String getPicture() {
-        return picture;
-    }
+    public String getPicture() {return this.picture;}
 
     public void setName(String name) {
         this.name = name;
