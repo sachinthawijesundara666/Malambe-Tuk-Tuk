@@ -6,7 +6,7 @@ public class CartItem {
     private String brand;
     private double price;
     private int quantity;
-    private String detail;
+    private String category;
     private String picture;
 
     public CartItem(String code, String name, String brand, double price, int quantity, String detail, String picture){
@@ -15,7 +15,7 @@ public class CartItem {
         this.brand = brand;
         this.price = price;
         this.quantity = quantity;
-        this.detail = detail;
+        this.category = detail;
         this.picture = picture;
     }
 
@@ -39,12 +39,14 @@ public class CartItem {
         return this.quantity;
     }
 
-    public String getCartItemDetail() {
-        return this.detail;
+    public String getCartItemCategory() {
+        return this.category;
     }
 
     public String getPicture() {return this.picture;}
 
     public void setCartItemQuantity(int quantity) {this.quantity = quantity;}
+
+    public void setCartItemPrice(double price){this.price = price;}
 
 }

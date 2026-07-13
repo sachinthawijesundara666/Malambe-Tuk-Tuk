@@ -18,7 +18,7 @@ public class CartManager {
             return "QuantityError";
         }
 
-        CartItem cartItem = new CartItem(product.getCode(), product.getName(), product.getBrand(), product.getPrice(), quantity, product.getDetail(), product.getPicture());
+        CartItem cartItem = new CartItem(product.getCode(), product.getName(), product.getBrand(), product.getPrice(), quantity, product.getCategory(), product.getPicture());
         for (CartItem basket : Basket){
             if (basket.getCartItemCode().equals(cartItem.getCartItemCode())){
                 return "Duplicate";
@@ -72,7 +72,7 @@ public class CartManager {
                 }
             }
 
-            String line = cartItem.getCartItemCode() + ", " + cartItem.getCartItemName() + ", " + cartItem.getCartItemBrand() + ", " + cartItem.getCartItemPrice() + ", " + cartItem.getCartItemQuantity() + ", " + cartItem.getCartItemDetail() +  ", " + cartItem.getPicture() + "\n";
+            String line = cartItem.getCartItemCode() + ", " + cartItem.getCartItemName() + ", " + cartItem.getCartItemBrand() + ", " + cartItem.getCartItemPrice() + ", " + cartItem.getCartItemQuantity() + ", " + cartItem.getCartItemCategory() +  ", " + cartItem.getPicture() + "\n";
             textFileManager.append("ProceedPaymentItems.txt", line);
             if (!textFileManager.getAppendFlag()){
                 return "TextFileError";
@@ -89,7 +89,7 @@ public class CartManager {
         }
         
         for(Products product : productList){
-            String line = product.getCode() + ", " + product.getName() + ", " + product.getBrand()+ ", " + product.getPrice() + ", " + product.getQuantity() + ", " + product.getDetail() + ", " + product.getDate() + ", " + product.getPicture() + "\n";
+            String line = product.getCode() + ", " + product.getName() + ", " + product.getBrand()+ ", " + product.getPrice() + ", " + product.getQuantity() + ", " + product.getCategory() + ", " + product.getDate() + ", " + product.getPicture() + "\n";
             textFileManager.append("inventory_legacy.txt", line);
             if (!textFileManager.getAppendFlag()){
                 return "TextFileError";
@@ -97,6 +97,50 @@ public class CartManager {
         }
         CartManager.Basket.clear();
         return "Success";
+    }
+
+    public static String Total (){
+
+        int ElectricalCount = 0;
+        int EngineCount = 0;
+        double total = 0d;
+        boolean bulk = false;
+        boolean synergy = false;
+
+        for (CartItem c : Basket) {
+            double itemPrice = (c.getCartItemPrice() * c.getCartItemQuantity());
+            if (c.getCartItemQuantity() >= 3) {
+                itemPrice = itemPrice * (95d/100d);
+                bulk = true;
+            }
+
+            if (c.getCartItemCategory().equals("engine")) {
+                EngineCount += 1;
+            }
+
+            if (c.getCartItemCategory().equals("electrical")) {
+                ElectricalCount += 1;
+            }
+
+            total += itemPrice;
+        }
+        if (EngineCount>=1 && ElectricalCount>=1){
+            total = total * 90d/100d;
+            synergy = true;
+
+        }
+        if (bulk && synergy) {
+            return "Bulk Discount Applied\nSynergy Discount Applied\nTotal: " + String.format("%.2f", total);
+        }
+        else if (bulk) {
+            return "Bulk Discount Applied\nTotal: " + String.format("%.2f", total);
+        }
+        else if (synergy) {
+            return "Synergy Discount Applied\nTotal: " + String.format("%.2f", total);
+        }
+        else {
+            return "No Discounts Applied\nTotal: " + String.format("%.2f", total);
+        }
     }
 }
 

@@ -6,17 +6,17 @@ public class Products {
     private String brand;
     private double price;
     private int quantity;
-    private String detail;
+    private String category;
     private String date;
     private String picture;
 
-    public Products(String code, String name, String brand, double price, int quantity, String detail, String date, String picture) {
+    public Products(String code, String name, String brand, double price, int quantity, String category, String date, String picture) {
         this.code = code;
         this.name = name;
         this.brand = brand;
         this.price = price;
         this.quantity = quantity;
-        this.detail = detail;
+        this.category = category;
         this.date = date;
         this.picture = picture;
     }
@@ -41,8 +41,8 @@ public class Products {
         return this.quantity;
     }
 
-    public String getDetail() {
-        return this.detail;
+    public String getCategory() {
+        return this.category;
     }
 
     public String getDate() {
@@ -65,8 +65,8 @@ public class Products {
 
     public void setQuantity(int quantity) {this.quantity = quantity;}
 
-    public void setDetail(String detail) {
-        this.detail = detail;
+    public void setCategory(String detail) {
+        this.category = category;
     }
 
     public void setDate(String date) {this.date = date;}

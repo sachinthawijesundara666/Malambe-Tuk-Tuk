@@ -47,7 +47,7 @@ public class ProductManager {
 
             if (!foundCode){
                 Products product = new Products(code, name, brand, priceConv, quantityConv, detail, date, picture);
-                String line = product.getCode() + ", " + product.getName() + ", " + product.getBrand()+ ", " + product.getPrice() + ", " + product.getQuantity() + ", " + product.getDetail() + ", " + product.getDate() + ", " + product.getPicture() + "\n";
+                String line = product.getCode() + ", " + product.getName() + ", " + product.getBrand()+ ", " + product.getPrice() + ", " + product.getQuantity() + ", " + product.getCategory() + ", " + product.getDate() + ", " + product.getPicture() + "\n";
                 TextFileManager textFileManager = new TextFileManager();
                 textFileManager.append("inventory_legacy.txt", line);
                 if (!textFileManager.getAppendFlag()){
@@ -132,7 +132,7 @@ public class ProductManager {
                         product.getBrand() + ", " +
                         product.getPrice() + ", " +
                         product.getQuantity() + ", " +
-                        product.getDetail() + ", " +
+                        product.getCategory() + ", " +
                         product.getDate() + ", " +
                         product.getPicture() + "\n";
 
@@ -191,7 +191,7 @@ public class ProductManager {
                 }
 
                 if (detail != null && !detail.isEmpty()) {
-                    product.setDetail(detail);
+                    product.setCategory(detail);
                 }
 
                 if (date != null && !date.isEmpty()) {
@@ -222,7 +222,7 @@ public class ProductManager {
                         product.getBrand() + ", " +
                         product.getPrice() + ", " +
                         product.getQuantity() + ", " +
-                        product.getDetail() + ", " +
+                        product.getCategory() + ", " +
                         product.getDate() + ", " +
                         product.getPicture() + "\n";
 
