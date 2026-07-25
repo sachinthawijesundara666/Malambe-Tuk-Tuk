@@ -5,9 +5,10 @@ import Model.Products;
 import Cleaner.TextFileManager;
 
 public class ProductManager {
+
     //Adds new row to txt file db
     public static String addProduct(String code, String name, String brand, String price, String quantity, String detail, String date, String picture){
-
+        int threshold = 10;
         if (code != null && !code.isEmpty()){
 
             if (!validator.codeValidator(code)){
@@ -31,7 +32,7 @@ public class ProductManager {
                 return "DateFormatError";
             }
 
-            Products[] ProductList = load();
+            Products[] ProductList = loadFromNewFile();
 
             if (ProductList == null){
                 return "TextFileError";
@@ -46,25 +47,26 @@ public class ProductManager {
             }
 
             if (!foundCode){
-                Products product = new Products(code, name, brand, priceConv, quantityConv, detail, date, picture);
-                String line = product.getCode() + ", " + product.getName() + ", " + product.getBrand()+ ", " + product.getPrice() + ", " + product.getQuantity() + ", " + product.getCategory() + ", " + product.getDate() + ", " + product.getPicture() + "\n";
+                Products product = new Products(code, name, brand, priceConv, quantityConv, detail, date, picture, threshold);
+                String line = product.getCode() + ", " + product.getName() + ", " + product.getBrand()+ ", " + product.getPrice() + ", " + product.getQuantity() + ", " + product.getCategory() + ", " + product.getDate() + ", " + product.getPicture() + ", " + product.getThreshold() + "\n";
                 TextFileManager textFileManager = new TextFileManager();
-                textFileManager.append("inventory_legacy.txt", line);
+                textFileManager.append("Inventory.txt", line);
                 if (!textFileManager.getAppendFlag()){
                     return "TextFileError";
                 }
             }else return "Duplicate";
         }else return "NoCode";
+        AuditLogger.log("Item Added " + code);
         return "Success";
     }
 
     //Loading all Data into objects
-    public static Products[] load(){
+    public static Products[] load(String Location){
 
         Products[] productlist;
         TextFileManager textFileManager = new TextFileManager();
 
-        String[] newlines = textFileManager.read("inventory_legacy.txt");
+        String[] newlines = textFileManager.read(Location);
         if (!textFileManager.getReadFlag()){
             return null;
         }
@@ -75,6 +77,30 @@ public class ProductManager {
 
         for (int i = 0 ; i < cleaned.length ; i++){
             try {
+
+                int threshold = 10;
+                if(cleaned[i].length > 8){
+                    threshold = Integer.parseInt(cleaned[i][8]);
+                }
+
+                if (cleaned[i][3].equals("null")){
+                    cleaned[i][3] = "0";
+                }
+
+                if (cleaned[i][4].equals("null")){
+                    cleaned[i][4] = "0";
+                }
+
+                Double priceConv = validator.priceVal(cleaned[i][3]);
+                if (priceConv == null){
+                    cleaned[i][3] = "0";
+                }
+
+                Integer quantityConv = validator.quantityVal(cleaned[i][4]);
+                if (quantityConv == null){
+                    cleaned[i][4] = "0";
+                }
+
                 productlist[i] = new Products(
                         cleaned[i][0],
                         cleaned[i][1],
@@ -83,13 +109,86 @@ public class ProductManager {
                         Integer.parseInt(cleaned[i][4]),
                         cleaned[i][5],
                         cleaned[i][6],
-                        cleaned[i][7]
+                        cleaned[i][7],
+                        threshold
                 );
             }catch (NumberFormatException | ArrayIndexOutOfBoundsException | NullPointerException e){
                 return null;
             }
         }
         return productlist;
+    }
+    //Loads From the new file
+    public static Products[] loadFromNewFile() {
+
+        Products[] legacyProducts = load("inventory_legacy.txt");
+
+        if (legacyProducts == null) {
+            return null;
+        }
+
+        Products[] inventoryProducts = load("Inventory.txt");
+
+        TextFileManager textFileManager = new TextFileManager();
+
+        // Inventory.txt doesn't exist or couldn't be read
+        if (inventoryProducts == null || inventoryProducts.length == 0) {
+
+            for (Products product : legacyProducts) {
+
+                String line = product.getCode() + ", " +
+                        product.getName() + ", " +
+                        product.getBrand() + ", " +
+                        product.getPrice() + ", " +
+                        product.getQuantity() + ", " +
+                        product.getCategory() + ", " +
+                        product.getDate() + ", " +
+                        product.getPicture() + ", " +
+                        product.getThreshold() + "\n";
+
+                textFileManager.append("Inventory.txt", line);
+
+                if (!textFileManager.getAppendFlag()) {
+                    return null;
+                }
+            }
+
+        } else {
+
+            for (Products legacy : legacyProducts) {
+
+                boolean found = false;
+
+                for (Products inventory : inventoryProducts) {
+
+                    if (legacy.getCode().equals(inventory.getCode())) {
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found) {
+
+                    String line = legacy.getCode() + ", " +
+                            legacy.getName() + ", " +
+                            legacy.getBrand() + ", " +
+                            legacy.getPrice() + ", " +
+                            legacy.getQuantity() + ", " +
+                            legacy.getCategory() + ", " +
+                            legacy.getDate() + ", " +
+                            legacy.getPicture() + ", " +
+                            legacy.getThreshold() + "\n";
+
+                    textFileManager.append("Inventory.txt", line);
+
+                    if (!textFileManager.getAppendFlag()) {
+                        return null;
+                    }
+                }
+            }
+        }
+
+        return load("Inventory.txt");
     }
 
     //Deleting data
@@ -98,7 +197,7 @@ public class ProductManager {
             return "NoCode";
         }
 
-        Products[] prodlist = load();
+        Products[] prodlist = loadFromNewFile();
 
         if (prodlist == null){
             return "LoadingError";
@@ -115,9 +214,8 @@ public class ProductManager {
         }
 
         if (found){
-
             TextFileManager textFileManager = new TextFileManager();
-            textFileManager.write("inventory_legacy.txt", "");
+            textFileManager.write("Inventory.txt", "");
             if (!textFileManager.getWriteFlag()){
                 return "TextFileError";
             }
@@ -134,9 +232,10 @@ public class ProductManager {
                         product.getQuantity() + ", " +
                         product.getCategory() + ", " +
                         product.getDate() + ", " +
-                        product.getPicture() + "\n";
+                        product.getPicture() + ", " +
+                        product.getThreshold() + "\n";
 
-                textFileManager.append("inventory_legacy.txt", line);
+                textFileManager.append("Inventory.txt", line);
                 if (!textFileManager.getAppendFlag()) {
                     return "TextFileError";
                 }
@@ -145,6 +244,7 @@ public class ProductManager {
         }else {
             return "NotFound";
         }
+        AuditLogger.log("Item Deleted " + code);
         return "Success";
     }
 
@@ -153,7 +253,7 @@ public class ProductManager {
             return "CodeFormatError";
         }
 
-        Products[] prodlist = load();
+        Products[] prodlist = loadFromNewFile();
 
         if (prodlist == null) {
             return "LoadingError";
@@ -211,7 +311,7 @@ public class ProductManager {
 
         if (found) {
             TextFileManager textFileManager = new TextFileManager();
-            textFileManager.write("inventory_legacy.txt", "");
+            textFileManager.write("Inventory.txt", "");
             if (!textFileManager.getWriteFlag()) {
                 return "TextFileError";
             }
@@ -224,16 +324,19 @@ public class ProductManager {
                         product.getQuantity() + ", " +
                         product.getCategory() + ", " +
                         product.getDate() + ", " +
-                        product.getPicture() + "\n";
+                        product.getPicture() + ", " +
+                        product.getThreshold() + "\n";
 
-                textFileManager.append("inventory_legacy.txt", line);
+                textFileManager.append("Inventory.txt", line);
                 if (!textFileManager.getAppendFlag()) {
                     return "TextFileError";
                 }
             }
         } else {
             return "NotFound";
-        }return "Success";
+        }
+        AuditLogger.log("Item Updated " + code);
+        return "Success";
     }
 }
 

@@ -9,8 +9,9 @@ public class Products {
     private String category;
     private String date;
     private String picture;
+    private int threshold;
 
-    public Products(String code, String name, String brand, double price, int quantity, String category, String date, String picture) {
+    public Products(String code, String name, String brand, double price, int quantity, String category, String date, String picture, int threshold) {
         this.code = code;
         this.name = name;
         this.brand = brand;
@@ -19,6 +20,7 @@ public class Products {
         this.category = category;
         this.date = date;
         this.picture = picture;
+        this.threshold = threshold;
     }
 
     public String getCode() {
@@ -51,6 +53,8 @@ public class Products {
 
     public String getPicture() {return this.picture;}
 
+    public int getThreshold() { return threshold;}
+
     public void setName(String name) {
         this.name = name;
     }
@@ -59,13 +63,11 @@ public class Products {
         this.brand = brand;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
+    public void setPrice(double price) { this.price = price; }
 
     public void setQuantity(int quantity) {this.quantity = quantity;}
 
-    public void setCategory(String detail) {
+    public void setCategory(String category) {
         this.category = category;
     }
 
@@ -74,6 +76,8 @@ public class Products {
     public void setPicture(String picture) {
         this.picture = picture;
     }
+
+    public void setThreshold(int threshold) { this.threshold = threshold; }
 
 }
 

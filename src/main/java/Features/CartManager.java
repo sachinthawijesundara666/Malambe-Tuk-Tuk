@@ -38,7 +38,7 @@ public class CartManager {
     }
 
     public static String setQuantity(CartItem cartItem, Products product, int quantity){
-        if (quantity> product.getQuantity()){
+        if (quantity > product.getQuantity()){
             return "QuantityError";
         }
 
@@ -56,7 +56,7 @@ public class CartManager {
             return "EmptyBasket";
         }
         TextFileManager textFileManager = new TextFileManager();
-        Products[] productList = ProductManager.load();
+        Products[] productList = ProductManager.loadFromNewFile();
 
         if (productList == null)
         {
@@ -83,14 +83,14 @@ public class CartManager {
             return "TextFileError";
         }
 
-        textFileManager.write("inventory_legacy.txt", "");
+        textFileManager.write("Inventory.txt", "");
         if (!textFileManager.getWriteFlag()){
             return "TextFileError";
         }
         
         for(Products product : productList){
-            String line = product.getCode() + ", " + product.getName() + ", " + product.getBrand()+ ", " + product.getPrice() + ", " + product.getQuantity() + ", " + product.getCategory() + ", " + product.getDate() + ", " + product.getPicture() + "\n";
-            textFileManager.append("inventory_legacy.txt", line);
+            String line = product.getCode() + ", " + product.getName() + ", " + product.getBrand()+ ", " + product.getPrice() + ", " + product.getQuantity() + ", " + product.getCategory() + ", " + product.getDate() + ", " + product.getPicture() + ", " + product.getThreshold() + "\n";
+            textFileManager.append("Inventory.txt", line);
             if (!textFileManager.getAppendFlag()){
                 return "TextFileError";
             }
