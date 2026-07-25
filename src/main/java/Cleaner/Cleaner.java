@@ -42,7 +42,6 @@ public class Cleaner {
     }
 
     private String cleanDate(String date) {
-
         if (date.equals("null")) {
             return "null";
         }
@@ -92,35 +91,50 @@ public class Cleaner {
 
     private boolean isMonth(String value) {
         String m = value.toLowerCase();
-        return m.startsWith("jan") ||
-                m.startsWith("feb") ||
-                m.startsWith("mar") ||
-                m.startsWith("apr") ||
-                m.startsWith("may") ||
-                m.startsWith("jun") ||
-                m.startsWith("jul") ||
-                m.startsWith("aug") ||
-                m.startsWith("sep") ||
-                m.startsWith("oct") ||
-                m.startsWith("nov") ||
-                m.startsWith("dec");
-    }
+        if (m.startsWith("jan") || m.startsWith("feb") || m.startsWith("mar") || m.startsWith("apr") || m.startsWith("may") || m.startsWith("jun") || m.startsWith("jul") || m.startsWith("aug") || m.startsWith("sep") || m.startsWith("oct") || m.startsWith("nov") || m.startsWith("dec")){
+        return true;
+        }return false;
+    };
 
 
     private String getMonth(String value) {
         String m = value.toLowerCase();
-        if (m.startsWith("jan")) return "01";
-        if (m.startsWith("feb")) return "02";
-        if (m.startsWith("mar")) return "03";
-        if (m.startsWith("apr")) return "04";
-        if (m.startsWith("may")) return "05";
-        if (m.startsWith("jun")) return "06";
-        if (m.startsWith("jul")) return "07";
-        if (m.startsWith("aug")) return "08";
-        if (m.startsWith("sep")) return "09";
-        if (m.startsWith("oct")) return "10";
-        if (m.startsWith("nov")) return "11";
-        if (m.startsWith("dec")) return "12";
+        if (m.startsWith("jan")) {
+            return "01";
+        }
+        if (m.startsWith("feb")) {
+            return "02";
+        }
+        if (m.startsWith("mar")) {
+            return "03";
+        }
+        if (m.startsWith("apr")) {
+            return "04";
+        }
+        if (m.startsWith("may")) {
+            return "05";
+        }
+        if (m.startsWith("jun")) {
+            return "06";
+        }
+        if (m.startsWith("jul")) {
+            return "07";
+        }
+        if (m.startsWith("aug")) {
+            return "08";
+        }
+        if (m.startsWith("sep")) {
+            return "09";
+        }
+        if (m.startsWith("oct")) {
+            return "10";
+        }
+        if (m.startsWith("nov")) {
+            return "11";
+        }
+        if (m.startsWith("dec")) {
+            return "12";
+        }
         return "null";
     }
 
