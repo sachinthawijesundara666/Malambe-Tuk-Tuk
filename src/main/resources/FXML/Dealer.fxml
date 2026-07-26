@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1060.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.DealerController">
+<AnchorPane prefHeight="720.0" prefWidth="1060.0" stylesheets="@../CSS/MainStyleSheet.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.DealerController">
    <children>
       <Label layoutX="40.0" layoutY="24.0" text="DEALERS">
          <font>
@@ -18,8 +18,8 @@
       <Label layoutX="40.0" layoutY="66.0" style="-fx-text-fill: #7A7A7A; -fx-font-size: 14px;" text="Manage your dealers here" />
       <HBox layoutX="40.0" layoutY="100.0" spacing="15.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#onRandomSelectClick" styleClass="nav-button" text="Random Select" />
-            <Button mnemonicParsing="false" onAction="#onResetClick" styleClass="nav-button" text="Reset" />
+            <Button mnemonicParsing="false" onAction="#onRandomSelectClick" styleClass="filled-button" text="Random Select" />
+            <Button mnemonicParsing="false" onAction="#onResetClick" styleClass="secondary-button" text="Reset" />
          </children>
       </HBox>
       <TableView fx:id="dealerTable" layoutX="40.0" layoutY="150.0" prefHeight="540.0" prefWidth="980.0">

@@ -206,7 +206,6 @@ public class ProductManager {
         boolean found = false;
 
         for (Products value : prodlist) {
-
             if (code.equals(value.getCode())) {
                 found = true;
                 break;
@@ -220,7 +219,6 @@ public class ProductManager {
                 return "TextFileError";
             }
             for (Products product : prodlist) {
-
                 if (code.equals(product.getCode())) {
                     continue;
                 }

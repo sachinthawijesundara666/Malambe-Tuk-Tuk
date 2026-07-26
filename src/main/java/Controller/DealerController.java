@@ -37,10 +37,10 @@ public class DealerController {
 
     private void loadAllDealers() {
         Dealers[] dealers = DealerManager.load();
-        dealerTable.setItems(toObservableList(dealers));
+        dealerTable.setItems(ConvertObservableList(dealers));
     }
 
-    private ObservableList<Dealers> toObservableList(Dealers[] dealers) {
+    private ObservableList<Dealers> ConvertObservableList(Dealers[] dealers) {
         ObservableList<Dealers> dealerList = FXCollections.observableArrayList();
         if (dealers != null) {
             dealerList.addAll(dealers);
@@ -51,7 +51,7 @@ public class DealerController {
     @FXML
     private void onRandomSelectClick() {
         Dealers[] randomDealers = DealerManager.DealerRandomSelect();
-        dealerTable.setItems(toObservableList(randomDealers));
+        dealerTable.setItems(ConvertObservableList(randomDealers));
     }
 
     @FXML

@@ -47,11 +47,8 @@ public class DealerManager {
 
         for (int i = 0 ; i<dealers.length; i++){
             int j = random.nextInt(dealers.length);
-
             Dealers temp = dealers[j];
-
             dealers[j] = dealers[i];
-
             dealers[i] = temp;
         }
 
