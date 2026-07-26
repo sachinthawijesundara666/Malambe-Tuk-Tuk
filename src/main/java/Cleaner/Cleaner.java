@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cleaner {
-
     public String[][] clean(String[] rawLines) {
         List<String[]> cleanedRows = new ArrayList<>();
 
@@ -12,7 +11,6 @@ public class Cleaner {
             if (line == null || line.trim().isEmpty()) {
                 continue;
             }
-
             line = line.replaceAll("([A-Za-z]+ \\d{1,2}), (\\d{4})", "$1#$2");
             line = line.replaceAll("(\\d{1,2}) [A-Za-z]+, (\\d{4})", "$1#$2");
 
@@ -24,9 +22,7 @@ public class Cleaner {
             for (int i = 0; i < columns; i++) {
                 if (i < parts.length) {
                     String value = parts[i].trim().replace("#", ",");
-
                     value = value.replaceAll("(?i)^rs\\.?\\s*", "");
-
                     if (value.isEmpty()) {
                         value = "null";
                     }
@@ -88,14 +84,12 @@ public class Cleaner {
         }
     }
 
-
     private boolean isMonth(String value) {
         String m = value.toLowerCase();
         if (m.startsWith("jan") || m.startsWith("feb") || m.startsWith("mar") || m.startsWith("apr") || m.startsWith("may") || m.startsWith("jun") || m.startsWith("jul") || m.startsWith("aug") || m.startsWith("sep") || m.startsWith("oct") || m.startsWith("nov") || m.startsWith("dec")){
         return true;
         }return false;
     };
-
 
     private String getMonth(String value) {
         String m = value.toLowerCase();

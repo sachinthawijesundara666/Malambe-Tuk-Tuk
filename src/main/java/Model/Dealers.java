@@ -14,4 +14,12 @@ public class Dealers {
         this.contact = contact;
         this.location = location;
     }
+
+    public String getCode() { return code; }
+
+    public String getName() { return name; }
+
+    public String getContact() { return contact; }
+
+    public String getLocation() { return location; }
 }

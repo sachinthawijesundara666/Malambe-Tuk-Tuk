@@ -20,6 +20,7 @@ public class MalambeTukTuk extends Application{
             stage.getIcons().add(new Image(icon));
         }
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
 
     }

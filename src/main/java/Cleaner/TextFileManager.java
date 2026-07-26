@@ -3,8 +3,6 @@ package Cleaner;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.Scanner;
 
 public class TextFileManager {
@@ -12,21 +10,17 @@ public class TextFileManager {
     boolean readFlag;
     boolean writeFlag;
 
-    private File resolveDataFile(String textfile) throws IOException {
-        URL resource = TextFileManager.class.getResource("/Data/" + textfile);
-        if (resource == null) {
-            throw new IOException("/Data/" + textfile + " not found on classpath");
+    private File loadFile(String textfile) throws IOException {
+        File file = new File("src/main/resources/Data/" + textfile);
+        if (!file.exists()) {
+            throw new IOException("src/main/resources/Data/" + textfile + " not found");
         }
-        try {
-            return new File(resource.toURI());
-        } catch (URISyntaxException e) {
-            throw new IOException(e);
-        }
+        return file;
     }
 
     public void append(String textfile, String dataObjString){
         try {
-            FileWriter writer = new FileWriter(resolveDataFile(textfile), true);
+            FileWriter writer = new FileWriter(loadFile(textfile), true);
             writer.write(dataObjString);
             writer.close();
             this.appendFlag = true;
@@ -37,7 +31,7 @@ public class TextFileManager {
 
     public String[] read(String textfile){
         try {
-            File file = resolveDataFile(textfile);
+            File file = loadFile(textfile);
             int count = 0;
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()){ scanner.nextLine(); count++; }
@@ -57,7 +51,7 @@ public class TextFileManager {
 
     public void write(String textfile, String dataObjString){
         try {
-            FileWriter writer = new FileWriter(resolveDataFile(textfile));
+            FileWriter writer = new FileWriter(loadFile(textfile));
             writer.write(dataObjString);
             writer.close();
             this.writeFlag = true;
