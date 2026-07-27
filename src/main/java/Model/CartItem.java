@@ -19,27 +19,27 @@ public class CartItem {
         this.picture = picture;
     }
 
-    public String getCartItemCode() {
+    public String getCode() {
         return this.itemCode;
     }
 
-    public String getCartItemName() {
+    public String getName() {
         return this.name;
     }
 
-    public String getCartItemBrand() {
+    public String getBrand() {
         return this.brand;
     }
 
-    public double getCartItemPrice() {
+    public double getPrice() {
         return this.price;
     }
 
-    public int getCartItemQuantity() {
+    public int getQuantity() {
         return this.quantity;
     }
 
-    public String getCartItemCategory() {
+    public String getCategory() {
         return this.category;
     }
 

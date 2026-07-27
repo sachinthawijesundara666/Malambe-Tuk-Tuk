@@ -20,7 +20,7 @@ public class CartManager {
 
         CartItem cartItem = new CartItem(product.getCode(), product.getName(), product.getBrand(), product.getPrice(), quantity, product.getCategory(), product.getPicture());
         for (CartItem basket : Basket){
-            if (basket.getCartItemCode().equals(cartItem.getCartItemCode())){
+            if (basket.getCode().equals(cartItem.getCode())){
                 return "Duplicate";
             }
         }
@@ -29,13 +29,16 @@ public class CartManager {
         return "AddedToCart";
     }
 
+
     public static void RemoveCart(CartItem cartItem){
         Basket.remove(cartItem);
     }
 
+
     public static ArrayList<CartItem> getBasket(){
         return Basket;
     }
+
 
     public static String setQuantity(CartItem cartItem, Products product, int quantity){
         if (quantity > product.getQuantity()){
@@ -48,6 +51,7 @@ public class CartManager {
         cartItem.setCartItemQuantity(quantity);
         return "QuantitySet";
     }
+
 
     public static String proceed(){
         ArrayList<CartItem> CartBasket = CartManager.getBasket();
@@ -66,13 +70,13 @@ public class CartManager {
         for (CartItem cartItem : CartBasket) {
 
             for (Products p : productList){
-                if (cartItem.getCartItemCode().equals(p.getCode())){
-                    p.setQuantity(p.getQuantity() - cartItem.getCartItemQuantity());
+                if (cartItem.getCode().equals(p.getCode())){
+                    p.setQuantity(p.getQuantity() - cartItem.getQuantity());
                     break;
                 }
             }
 
-            String line = cartItem.getCartItemCode() + ", " + cartItem.getCartItemName() + ", " + cartItem.getCartItemBrand() + ", " + cartItem.getCartItemPrice() + ", " + cartItem.getCartItemQuantity() + ", " + cartItem.getCartItemCategory() +  ", " + cartItem.getPicture() + "\n";
+            String line = cartItem.getCode() + ", " + cartItem.getName() + ", " + cartItem.getBrand() + ", " + cartItem.getPrice() + ", " + cartItem.getQuantity() + ", " + cartItem.getCategory() +  ", " + cartItem.getPicture() + "\n";
             textFileManager.append("ProceedPaymentItems.txt", line);
             if (!textFileManager.getAppendFlag()){
                 return "TextFileError";
@@ -106,19 +110,20 @@ public class CartManager {
         double total = 0d;
         boolean bulk = false;
         boolean synergy = false;
-
+        double totalWithoutDiscount = 0;
         for (CartItem c : Basket) {
-            double itemPrice = (c.getCartItemPrice() * c.getCartItemQuantity());
-            if (c.getCartItemQuantity() >= 3) {
+            double itemPrice = (c.getPrice() * c.getQuantity());
+            totalWithoutDiscount += itemPrice;
+            if (c.getQuantity() >= 3) {
                 itemPrice = itemPrice * (95d/100d);
                 bulk = true;
             }
 
-            if (c.getCartItemCategory().equals("engine")) {
+            if (c.getCategory().equals("engine")) {
                 EngineCount += 1;
             }
 
-            if (c.getCartItemCategory().equals("electrical")) {
+            if (c.getCategory().equals("electrical")) {
                 ElectricalCount += 1;
             }
 
@@ -130,16 +135,16 @@ public class CartManager {
 
         }
         if (bulk && synergy) {
-            return "Bulk Discount Applied\nSynergy Discount Applied\nTotal: " + String.format("%.2f", total);
+            return "Total With No Discount: Rs." + String.format("%.2f", totalWithoutDiscount) + "\n" + "Bulk Discount Applied\nSynergy Discount Applied\nTotal: Rs." + String.format("%.2f", total);
         }
         else if (bulk) {
-            return "Bulk Discount Applied\nTotal: " + String.format("%.2f", total);
+            return "Total With No Discount: Rs." + String.format("%.2f", totalWithoutDiscount) + "\n" +"Bulk Discount Applied\nTotal: Rs." + String.format("%.2f", total);
         }
         else if (synergy) {
-            return "Synergy Discount Applied\nTotal: " + String.format("%.2f", total);
+            return "Total With No Discount: Rs." + String.format("%.2f", totalWithoutDiscount) + "\n" + "Synergy Discount Applied\nTotal: Rs." + String.format("%.2f", total);
         }
         else {
-            return "No Discounts Applied\nTotal: " + String.format("%.2f", total);
+            return "Total With No Discount: Rs." + String.format("%.2f", totalWithoutDiscount) + "\n" + "No Discounts Applied\nTotal: Rs." + String.format("%.2f", total);
         }
     }
 }
