@@ -32,14 +32,13 @@
          </children>
       </HBox>
 
-      <HBox alignment="CENTER_LEFT" layoutX="40.0" layoutY="134.0" prefWidth="980.0" spacing="12.0">
+      <HBox alignment="CENTER_LEFT" layoutX="40.0" layoutY="134.0" prefHeight="40.0" prefWidth="863.0" spacing="12.0">
          <children>
             <Button mnemonicParsing="false" onAction="#onUpdateButtonClick" styleClass="filled-button" text="Update" />
             <Button mnemonicParsing="false" onAction="#onDeleteButtonClick" styleClass="filled-button" text="Delete" />
             <Button fx:id="thresholdBtn" mnemonicParsing="false" onAction="#onThresholdButtonClick" styleClass="secondary-button" text="Threshold" />
             <Button fx:id="showPictureBtn" managed="false" mnemonicParsing="false" styleClass="secondary-button" text="Show Picture" visible="false" />
-            <Region prefHeight="40.0" prefWidth="551.0" />
-            <Button fx:id="cartBtn" mnemonicParsing="false" onAction="#onCartButtonClick" styleClass="secondary-button" text="Add To Cart" />
+            <Button fx:id="viewPicBtn" mnemonicParsing="false" onAction="#onPictureButtonClick" styleClass="secondary-button" text="View Picture" />
          </children>
       </HBox>
 
@@ -58,5 +57,6 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
+      <Button fx:id="cartBtn" layoutX="903.0" layoutY="134.0" mnemonicParsing="false" onAction="#onCartButtonClick" styleClass="secondary-button" text="Add To Cart" />
    </children>
 </AnchorPane>

@@ -11,14 +11,15 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -59,6 +60,9 @@ public class InventoryController {
 
     @FXML
     private TextField searchField;
+
+    @FXML
+    private Button viewPicBtn;
 
     private static String currentKeyword = "";
     private static String currentCategory = "All";
@@ -189,6 +193,26 @@ public class InventoryController {
         searchField.setText(currentKeyword);
         applyCurrentFiltersAndSearch();
 
+        viewPicBtn.setVisible(false);
+        viewPicBtn.setManaged(false);
+
+        productsTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
+        {
+            if (newValue != null &&hasPic(newValue)){
+                viewPicBtn.setVisible(true);
+                viewPicBtn.setManaged(true);
+            }else {
+                viewPicBtn.setVisible(false);
+                viewPicBtn.setManaged(false);
+            }
+        });
+    }
+
+
+    private boolean hasPic (Products product) {
+        if (!product.getPicture().equals("null") && product.getPicture() != null && !product.getPicture().isEmpty()){
+            return true;
+        }else return false;
     }
 
 
@@ -400,32 +424,33 @@ public class InventoryController {
             alert.setHeaderText("No Product Selected");
             alert.setContentText("Select a product before adding to cart.");
             alert.showAndWait();
+            return;
         }
-        String cartStatus = CartManager.AddCart(product, 1);
 
-        if (cartStatus.equals("AddedToCart")) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Cart Message");
-            alert.setHeaderText("Item Added to cart");
-            alert.setContentText("Item " + product.getCode() + " added to cart.");
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(InventoryController.class.getResource("/FXML/Quantity.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+
+            AddToCartController addToCartController = fxmlLoader.getController();
+            addToCartController.setProduct(product);
+
+            Stage stage = new Stage();
+            stage.setTitle("Add To Cart");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.showAndWait();
+
+        }catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Add To Cart Controller Error");
+            alert.setHeaderText("Add To Cart Window Error");
+            alert.setContentText("Error while opening Add To Cart window.");
             alert.showAndWait();
         }
 
-        if (cartStatus.equals("Duplicate")) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Cart Message");
-            alert.setHeaderText("Duplicate Item");
-            alert.setContentText("Item " + product.getCode() + " already exists in cart.");
-            alert.showAndWait();
-        }
 
-        if (cartStatus.equals("QuantityError")) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Cart Message");
-            alert.setHeaderText("Quantity Error");
-            alert.setContentText("Quantity higher than available number of units.");
-            alert.showAndWait();
-        }
+
     }
 
 
@@ -467,5 +492,40 @@ public class InventoryController {
             alert.setContentText("Error while opening Filter window.");
             alert.showAndWait();
         }
+    }
+
+
+    @FXML
+    private void onPictureButtonClick(){
+        Products product = productsTable.getSelectionModel().getSelectedItem();
+
+        if (product == null || !hasPic(product)) {
+            return;
+        }
+
+        File img = new File("src/main/resources/Additional/ItemPictures/" + product.getPicture());
+
+        if (!img.exists()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Image Loading Error");
+            alert.setHeaderText("Image Loading Error");
+            alert.setContentText("Image does not exist. ");
+            alert.showAndWait();
+            return;
+        }
+
+        Image image = new Image(img.toURI().toString());
+        ImageView imageView = new ImageView(image);
+        imageView.setPreserveRatio(true);
+        imageView.setFitWidth(400);
+
+        StackPane imagePane = new StackPane(imageView);
+        imagePane.setStyle("-fx-background-color: white; -fx-padding: 20;");
+
+        Stage stage = new Stage();
+        stage.setTitle(product.getCode() + " - " + product.getName());
+        stage.setScene(new Scene(imagePane));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
     }
 }
