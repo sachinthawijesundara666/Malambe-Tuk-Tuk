@@ -53,6 +53,20 @@ public class UpdateController {
 
     @FXML
     private void onOkClick() {
+        Products[] legacyProducts = ProductManager.load("inventory_legacy.txt");
+
+        if (legacyProducts == null) {
+            showError("Error occurred while loading from text file.", "Error Loading Products");
+            return;
+        }
+
+        for (Products p : legacyProducts) {
+            if (p.getCode().equals(productToUpdate.getCode())) {
+                showError("Product selected is a legacy product, cannot be updated.", "Legacy Product");
+                return;
+            }
+        }
+
         String updateResult = ProductManager.update(
                 productToUpdate.getCode(),
                 nameField.getText(),
@@ -64,10 +78,12 @@ public class UpdateController {
                 pictureField.getText()
         );
 
+        
         switch (updateResult) {
             case "Success": {
                 Stage updateWindow = (Stage) okButton.getScene().getWindow();
                 updateWindow.close();
+                showInfo();
                 break;
             }
 
@@ -106,6 +122,14 @@ public class UpdateController {
         alert.setTitle("Update Product Failed");
         alert.setHeaderText(header);
         alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private void showInfo() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Updated Product Successful");
+        alert.setHeaderText("Product Updated");
+        alert.setContentText("Product update successful");
         alert.showAndWait();
     }
 }

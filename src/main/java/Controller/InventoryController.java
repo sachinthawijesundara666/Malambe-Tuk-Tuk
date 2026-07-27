@@ -151,7 +151,8 @@ public class InventoryController {
                 alert.setContentText("Product with selected code could not be found in text file.");
                 alert.showAndWait();
             }
-        }
+        }Products[] refreshedProducts = ProductManager.loadFromNewFile();
+        productsTable.setItems(toObservableList(refreshedProducts));
     }
 
     @FXML
@@ -165,6 +166,9 @@ public class InventoryController {
             stage.setResizable(false);
             stage.setScene(scene);
             stage.showAndWait();
+
+            Products[] refreshedProducts = ProductManager.loadFromNewFile();
+            productsTable.setItems(toObservableList(refreshedProducts));
         }
         catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -186,9 +190,43 @@ public class InventoryController {
             stage.setResizable(false);
             stage.setScene(scene);
             Products product = productsTable.getSelectionModel().getSelectedItem();
+            if (product == null) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("No Product Selected");
+                alert.setHeaderText("No Product Selected");
+                alert.setContentText("No product selected to update.");
+                alert.showAndWait();
+                return;
+            }
+
+            Products[] legacyProducts = ProductManager.load("inventory_legacy.txt");
+
+            if (legacyProducts == null) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Null Pointer error");
+                alert.setHeaderText("Error Loading Products");
+                alert.setContentText("Error occurred while loading from text file.");
+                alert.showAndWait();
+                return;
+            }
+
+            for (Products p : legacyProducts) {
+                if (p.getCode().equals(product.getCode())) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Non Updatable Item");
+                    alert.setHeaderText("Legacy Product");
+                    alert.setContentText("Product selected is a legacy product, cannot be updated.");
+                    alert.showAndWait();
+                    return;
+                }
+            }
+
             UpdateController updateController = fxmlloader.getController();
             updateController.setProduct(product);
             stage.showAndWait();
+
+            Products[] refreshedProducts = ProductManager.loadFromNewFile();
+            productsTable.setItems(toObservableList(refreshedProducts));
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Update Controller Error");
@@ -198,5 +236,43 @@ public class InventoryController {
         }
 
 
+    }
+
+    @FXML
+    private void onThresholdButtonClick() {
+        Products product = productsTable.getSelectionModel().getSelectedItem();
+
+        if (product == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("No Product Selected");
+            alert.setHeaderText("No Product Selected");
+            alert.setContentText("No product selected to set threshold.");
+            alert.showAndWait();
+            return;
+        }
+
+        try {
+            FXMLLoader fxmlloader = new FXMLLoader(InventoryController.class.getResource("/FXML/Threshold.fxml"));
+            Scene scene = new Scene(fxmlloader.load());
+
+            ThresholdController thresholdController = fxmlloader.getController();
+            thresholdController.setProduct(product);
+
+            Stage stage = new Stage();
+            stage.setTitle("Set Threshold");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.showAndWait();
+
+            Products[] refreshedProducts = ProductManager.loadFromNewFile();
+            productsTable.setItems(toObservableList(refreshedProducts));
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Threshold Controller Error");
+            alert.setHeaderText("Threshold Window Error");
+            alert.setContentText("Error while opening Threshold window.");
+            alert.showAndWait();
+        }
     }
 }

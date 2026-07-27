@@ -33,8 +33,10 @@
          <children>
             <Button mnemonicParsing="false" onAction="#onUpdateButtonClick" styleClass="filled-button" text="Update" />
             <Button mnemonicParsing="false" onAction="#onDeleteButtonClick" styleClass="filled-button" text="Delete" />
-            <Button fx:id="thresholdBtn" mnemonicParsing="false" styleClass="secondary-button" text="Threshold" />
+            <Button fx:id="thresholdBtn" mnemonicParsing="false" onAction="#onThresholdButtonClick" styleClass="secondary-button" text="Threshold" />
             <Button fx:id="showPictureBtn" managed="false" mnemonicParsing="false" styleClass="secondary-button" text="Show Picture" visible="false" />
+            <Region prefHeight="40.0" prefWidth="551.0" />
+            <Button fx:id="cartBtn" mnemonicParsing="false" styleClass="secondary-button" text="Add To Cart" />
          </children>
       </HBox>
 

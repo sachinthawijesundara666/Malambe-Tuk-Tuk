@@ -1,6 +1,7 @@
 package Controller;
 
 import Features.ProductManager;
+import Model.Products;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
@@ -53,6 +54,7 @@ public class AddController {
             case "Success": {
                 Stage stage = (Stage) okButton.getScene().getWindow();
                 stage.close();
+                showInfo("Product added successfully", "Product Added");
                 break;
             }
 
@@ -93,6 +95,14 @@ public class AddController {
     private void showError(String message, String HeaderStr) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Add Product Failed");
+        alert.setHeaderText(HeaderStr);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private void showInfo(String message, String HeaderStr) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Add Product Successful");
         alert.setHeaderText(HeaderStr);
         alert.setContentText(message);
         alert.showAndWait();
