@@ -1,0 +1,2 @@
+P010, Rear View Mirror, null, 800.0, 10, Bodywork, mirror.png
+

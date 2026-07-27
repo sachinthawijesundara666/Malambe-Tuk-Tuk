@@ -50,8 +50,6 @@ public class CartManager {
         }
         cartItem.setCartItemQuantity(quantity);
 
-
-
         return "QuantitySet";
     }
 

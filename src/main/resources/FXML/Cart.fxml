@@ -47,7 +47,7 @@
                   <Label fx:id="totalLabel" styleClass="cart-total-text" text="No Discounts Applied&#10;Total: 0.00" wrapText="true" />
                </children>
             </VBox>
-            <Button fx:id="proceedBtn" mnemonicParsing="false" prefHeight="60.0" prefWidth="280.0" styleClass="filled-button" text="Proceed" />
+            <Button fx:id="proceedBtn" mnemonicParsing="false" onAction="#onProceedButtonClick" prefHeight="60.0" prefWidth="280.0" styleClass="filled-button" text="Proceed" />
          </children>
       </HBox>
    </children>

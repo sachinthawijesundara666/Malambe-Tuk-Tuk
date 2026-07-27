@@ -143,4 +143,39 @@ public class CartController {
             alert.showAndWait();
         }
     }
+
+
+    @FXML
+    private void onProceedButtonClick() {
+        String result = CartManager.proceed();
+
+        if (result.equals("Success")) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Items Purchased");
+            alert.setHeaderText("Items Purchased");
+            alert.setContentText("Your items are purchased successfully.");
+            alert.showAndWait();
+
+            loadCart();
+            totalLabel.setText(CartManager.Total());
+        } else if (result.equals("EmptyBasket")) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Cart Empty");
+            alert.setHeaderText("Cart Empty");
+            alert.setContentText("Your cart is empty. Add items before proceeding.");
+            alert.showAndWait();
+        } else if (result.equals("ProductLoadingError")) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Loading Error");
+            alert.setHeaderText("Loading Error");
+            alert.setContentText("Error loading the products.");
+            alert.showAndWait();
+        } else if (result.equals("TextFileError")) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Text File Error");
+            alert.setHeaderText("Text File Error");
+            alert.setContentText("An error occurred while saving your order.");
+            alert.showAndWait();
+        }
+    }
 }
