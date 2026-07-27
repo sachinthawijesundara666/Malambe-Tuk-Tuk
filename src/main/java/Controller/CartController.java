@@ -63,6 +63,7 @@ public class CartController {
     private void loadCart(){
         CartItem[] cartItems = CartManager.getBasket().toArray(new CartItem[0]);
         cartTable.setItems(ConvObservableList(cartItems));
+        cartTable.refresh();
     }
 
     private ObservableList<CartItem> ConvObservableList(CartItem[] cartItems) {

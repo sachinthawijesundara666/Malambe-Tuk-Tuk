@@ -427,6 +427,15 @@ public class InventoryController {
             return;
         }
 
+        if (product.getQuantity() == 0) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Cart Message");
+            alert.setHeaderText("Product Out of Stock");
+            alert.setContentText("Selected product is out of stock");
+            alert.showAndWait();
+            return;
+        }
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(InventoryController.class.getResource("/FXML/Quantity.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
