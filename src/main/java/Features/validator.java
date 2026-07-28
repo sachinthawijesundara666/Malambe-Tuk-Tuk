@@ -4,7 +4,7 @@ import java.util.Locale;
 
 public class validator {
 
-    //Validating Date input
+
     public static boolean dateValidator(String date) {
 
         if (date == null || date.isEmpty()) {
@@ -55,7 +55,7 @@ public class validator {
         return true;
     }
 
-    //Validating Code
+
     public static boolean codeValidator(String Code){
         if (Code == null || Code.isEmpty()) {
             return false;
@@ -76,7 +76,7 @@ public class validator {
         return true;
     }
 
-    //validating Price
+
     public static Double priceVal(String price) {
         double priceConv = 0d;
 
@@ -91,7 +91,7 @@ public class validator {
         return priceConv;
     }
 
-    //Validating Quantity
+
     public static Integer quantityVal(String quantity){
         int quantityConv = 0;
 

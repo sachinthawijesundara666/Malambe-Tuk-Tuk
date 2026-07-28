@@ -98,7 +98,6 @@ public class InventoryController {
 
         for (String category : categoriesFound) {
             ArrayList<Products> sameCategoryItems = new ArrayList<>();
-
             for (Products product : products) {
                 if (product.getCategory().equalsIgnoreCase(category)) {
                     sameCategoryItems.add(product);
