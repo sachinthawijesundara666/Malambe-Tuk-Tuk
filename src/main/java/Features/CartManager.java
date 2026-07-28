@@ -3,6 +3,8 @@ package Features;
 import Model.CartItem;
 import Model.Products;
 import java.util.ArrayList;
+import java.util.Locale;
+
 import Cleaner.TextFileManager;
 
 public class CartManager {
@@ -105,7 +107,6 @@ public class CartManager {
     }
 
     public static String Total (){
-
         int ElectricalCount = 0;
         int EngineCount = 0;
         double total = 0d;
@@ -120,11 +121,11 @@ public class CartManager {
                 bulk = true;
             }
 
-            if (c.getCategory().equals("engine")) {
+            if (c.getCategory().equalsIgnoreCase("engine")) {
                 EngineCount += 1;
             }
 
-            if (c.getCategory().equals("electrical")) {
+            if (c.getCategory().equalsIgnoreCase("electrical")) {
                 ElectricalCount += 1;
             }
 

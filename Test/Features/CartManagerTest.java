@@ -3,6 +3,7 @@ package Features;
 import Model.CartItem;
 import Model.Products;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,6 +16,7 @@ class CartManagerTest {
     }
 
     @Test
+    @DisplayName("rejects adding the same product to the cart twice")
     void addingSameProductTwiceIsRejectedAsDuplicate() {
         Products cable = new Products("P040", "Speedometer Cable", "Local", 480.0, 14, "Engine", "2024/01/10", "speedo_cable.jpg", 5);
 
@@ -23,6 +25,7 @@ class CartManagerTest {
     }
 
     @Test
+    @DisplayName("removes an item and leaves the basket empty")
     void removingCartItemEmptiesBasket() {
         Products plateLight = new Products("P041", "Number Plate Light", "Local", 220.0, 20, "Electrical", "2024/01/10", "plate_light.jpg", 5);
         CartManager.AddCart(plateLight, 1);
@@ -34,6 +37,7 @@ class CartManagerTest {
     }
 
     @Test
+    @DisplayName("shows the item that was just added")
     void basketReflectsAddedItem() {
         Products kickLever = new Products("P042", "Kick Start Lever", "Bajaj", 650.0, 9, "Engine", "2024/01/10", "kick_lever.jpg", 5);
         CartManager.AddCart(kickLever, 1);
@@ -43,6 +47,7 @@ class CartManagerTest {
     }
 
     @Test
+    @DisplayName("allows a quantity change within stock but not beyond it")
     void quantityCanBeRaisedWithinStockButNotBeyondIt() {
         Products airFilter = new Products("P043", "Air Filter Foam", "Uni Filter", 900.0, 10, "Engine", "2024/01/10", "air_filter.jpg", 5);
         CartManager.AddCart(airFilter, 2);
@@ -54,6 +59,7 @@ class CartManagerTest {
     }
 
     @Test
+    @DisplayName("applies the bulk discount once 3 of the same item are in the cart")
     void bulkDiscountAppliesAtQuantityThree() {
         Products tyreTube = new Products("P030", "Tyre Tube 3.00-10", "CEAT", 850.0, 20, "Bodywork", "2024/01/05", "tyre_tube.jpg", 5);
         CartManager.AddCart(tyreTube, 3);
@@ -65,6 +71,7 @@ class CartManagerTest {
     }
 
     @Test
+    @DisplayName("applies no discount below the bulk threshold")
     void noDiscountBelowBulkThreshold() {
         Products cableTies = new Products("P031", "Cable Tie Pack (50pcs)", "Local", 120.0, 30, "Bodywork", "2024/01/05", "cable_ties.jpg", 5);
         CartManager.AddCart(cableTies, 2);
@@ -76,6 +83,7 @@ class CartManagerTest {
     }
 
     @Test
+    @DisplayName("applies the synergy discount for an engine item and an electrical item together")
     void synergyDiscountAppliesForEngineAndElectricalTogether() {
         Products pistonKit = new Products("P032", "Piston Kit 4-Stroke", "Bajaj", 500.0, 10, "engine", "2024/01/05", "piston_kit.jpg", 5);
         Products ignitionCoil = new Products("P033", "Ignition Coil Unit", "Bajaj", 500.0, 10, "electrical", "2024/01/05", "ignition_coil.jpg", 5);
@@ -89,6 +97,7 @@ class CartManagerTest {
     }
 
     @Test
+    @DisplayName("misses the synergy discount when the category is capitalised")
     void synergyDiscountDoesNotApplyWhenCategoryCaseDiffers() {
         Products radiatorFan = new Products("P034", "Radiator Cooling Fan", "Bajaj", 300.0, 10, "Engine", "2024/01/05", "radiator_fan.jpg", 5);
         Products batteryClamp = new Products("P035", "Battery Terminal Clamp", "Local", 300.0, 10, "Electrical", "2024/01/05", "battery_clamp.jpg", 5);
@@ -102,11 +111,13 @@ class CartManagerTest {
     }
 
     @Test
+    @DisplayName("rejects checkout on an empty basket")
     void checkoutOnEmptyBasketIsRejected() {
         assertEquals("EmptyBasket", CartManager.proceed());
     }
 
     @Test
+    @DisplayName("takes the purchased quantity off the live stock at checkout")
     void checkoutDeductsPurchasedQuantityFromLiveStock() {
         assertEquals("Success", ProductManager.addProduct("P914", "Clutch Plate Kit", "Bajaj", "1450", "12", "Engine", "2024/03/01", "clutch_plate.jpg"));
         try {
