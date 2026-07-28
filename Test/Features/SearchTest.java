@@ -1,7 +1,6 @@
 package Features;
 
 import Model.Products;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,8 +14,7 @@ class SearchTest {
     };
 
     @Test
-    @DisplayName("matches a keyword against part of the name, regardless of case")
-    void keywordMatchesPartialNameCaseInsensitively() {
+    void keywordMatch() {
         Products[] result = Search.search(catalogue, "disc", false, null, null, "All");
 
         assertEquals(1, result.length);
@@ -24,8 +22,7 @@ class SearchTest {
     }
 
     @Test
-    @DisplayName("returns only products from the selected category")
-    void categoryFilterReturnsOnlyMatchingCategory() {
+    void matchingCategory() {
         Products[] result = Search.search(catalogue, "", false, null, null, "Brakes");
 
         assertEquals(2, result.length);
@@ -34,8 +31,7 @@ class SearchTest {
     }
 
     @Test
-    @DisplayName("returns only items that are below their threshold")
-    void lowStockFilterReturnsOnlyItemsBelowThreshold() {
+    void lowStockOnly() {
         Products[] result = Search.search(catalogue, "", true, null, null, "All");
 
         assertEquals(1, result.length);
@@ -43,8 +39,7 @@ class SearchTest {
     }
 
     @Test
-    @DisplayName("returns only items priced within the given range")
-    void priceRangeFilterReturnsOnlyItemsWithinRange() {
+    void priceRange() {
         Products[] result = Search.search(catalogue, "", false, 2000.0, 3000.0, "All");
 
         assertEquals(1, result.length);

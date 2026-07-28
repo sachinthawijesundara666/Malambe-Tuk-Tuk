@@ -2,7 +2,6 @@ package Cleaner;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -28,7 +27,6 @@ class TextFileManagerTest {
     }
 
     @Test
-    @DisplayName("writes a file and reads it back correctly")
     void write() {
         TextFileManager textFileManager = new TextFileManager();
         textFileManager.write(SCRATCH_FILE, "P916, Wiring Harness Kit, Bajaj\n");
@@ -38,7 +36,6 @@ class TextFileManagerTest {
     }
 
     @Test
-    @DisplayName("appends a line without losing what was already there")
     void append() {
         TextFileManager textFileManager = new TextFileManager();
         textFileManager.write(SCRATCH_FILE, "P916, Wiring Harness Kit, Bajaj\n");
@@ -52,7 +49,6 @@ class TextFileManagerTest {
     }
 
     @Test
-    @DisplayName("reads a file back, and returns null for one that doesn't exist")
     void read() {
         TextFileManager textFileManager = new TextFileManager();
         textFileManager.write(SCRATCH_FILE, "P918, Fork Oil Seal Set, Kayaba\nP919, Chain Lube Spray, Motul\n");
@@ -64,8 +60,7 @@ class TextFileManagerTest {
     }
 
     @Test
-    @DisplayName("sets the append flag to false when the file doesn't exist")
-    void getAppendFlag() {
+    void appendFlag() {
         TextFileManager textFileManager = new TextFileManager();
         textFileManager.append("supplier_returns_manifest.txt", "P920, Rim Tape 17in, Local");
 
@@ -73,8 +68,7 @@ class TextFileManagerTest {
     }
 
     @Test
-    @DisplayName("sets the read flag to true after a successful read")
-    void getReadFlag() {
+    void readFlag() {
         TextFileManager textFileManager = new TextFileManager();
         textFileManager.write(SCRATCH_FILE, "P921, Grip Foam Pair, ProGrip\n");
         textFileManager.read(SCRATCH_FILE);
@@ -83,8 +77,7 @@ class TextFileManagerTest {
     }
 
     @Test
-    @DisplayName("sets the write flag to true after a successful write")
-    void getWriteFlag() {
+    void writeFlag() {
         TextFileManager textFileManager = new TextFileManager();
         textFileManager.write(SCRATCH_FILE, "P922, Throttle Cable, Bajaj\n");
 

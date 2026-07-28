@@ -1,7 +1,6 @@
 package Controller;
 
 import Model.Products;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Method;
@@ -11,8 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class InventoryControllerTest {
 
     @Test
-    @DisplayName("sorts products by code from lowest to highest")
-    void bubbleSortOrdersProductsByCodeAscending() throws Exception {
+    void sortByCode() throws Exception {
         Products[] products = {
                 new Products("P018", "Drive Belt CVT", "Bando", 1650.0, 8, "Engine", "2024/01/15", "drive_belt.jpg", 5),
                 new Products("P011", "Chain Sprocket Set 428H", "Diamond", 3200.0, 22, "Engine", "2023/11/03", "sprocket428.jpg", 5),
@@ -29,8 +27,7 @@ class InventoryControllerTest {
     }
 
     @Test
-    @DisplayName("keeps each category together and sorted, without mixing them")
-    void groupAndSortByCategoryKeepsEachCategoryContiguousAndSorted() throws Exception {
+    void groupByCategory() throws Exception {
         Products[] products = {
                 new Products("P018", "Drive Belt CVT", "Bando", 1650.0, 8, "Engine", "2024/01/15", "drive_belt.jpg", 5),
                 new Products("P015", "Handlebar Grip Rubber", "Local", 450.0, 60, "Bodywork", "2024/02/14", "grip_rubber.jpg", 5),

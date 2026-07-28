@@ -1,7 +1,6 @@
 package Features;
 
 import Model.Products;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -9,24 +8,21 @@ import static org.junit.jupiter.api.Assertions.*;
 class ProductManagerTest {
 
     @Test
-    @DisplayName("rejects a badly formatted product code")
-    void addProductRejectsMalformedCode() {
+    void badCode() {
         String result = ProductManager.addProduct("P9X9", "Rear Shock Absorber", "Bajaj", "2650", "6", "Bodywork", "2024/02/20", "shock_absorber.jpg");
 
         assertEquals("CodeFormatError", result);
     }
 
     @Test
-    @DisplayName("rejects a price that isn't a number")
-    void addProductRejectsNonNumericPrice() {
+    void badPrice() {
         String result = ProductManager.addProduct("P915", "Rear View Mirror Convex", "Local", "twelve hundred", "12", "Bodywork", "2024/02/20", "mirror_convex.jpg");
 
         assertEquals("NumberFormatError", result);
     }
 
     @Test
-    @DisplayName("adds a product then rejects the same code as a duplicate")
-    void addProductSucceedsThenRejectsDuplicateCode() {
+    void duplicateProduct() {
         try {
             assertEquals("Success", ProductManager.addProduct("P910", "Rear Shock Absorber", "Bajaj", "2650", "6", "Bodywork", "2024/02/20", "shock_absorber.jpg"));
             assertEquals("Duplicate", ProductManager.addProduct("P910", "Rear Shock Absorber", "Bajaj", "2650", "6", "Bodywork", "2024/02/20", "shock_absorber.jpg"));
@@ -36,8 +32,7 @@ class ProductManagerTest {
     }
 
     @Test
-    @DisplayName("reads the real legacy file and handles a missing brand")
-    void loadParsesRealLegacyFileAndHandlesMissingBrand() {
+    void legacyLoad() {
         Products[] legacy = ProductManager.load("inventory_legacy.txt");
 
         assertNotNull(legacy);
@@ -50,14 +45,12 @@ class ProductManagerTest {
     }
 
     @Test
-    @DisplayName("returns null for a file that doesn't exist")
-    void loadReturnsNullForFileThatDoesNotExist() {
+    void missingFile() {
         assertNull(ProductManager.load("supplier_price_list_2025.txt"));
     }
 
     @Test
-    @DisplayName("merges the legacy and live inventory into one list")
-    void loadFromNewFileMergesLegacyAndLiveInventory() {
+    void mergedInventory() {
         Products[] products = ProductManager.loadFromNewFile();
 
         assertNotNull(products);
@@ -68,8 +61,7 @@ class ProductManagerTest {
     }
 
     @Test
-    @DisplayName("deletes a product then reports it as not found the second time")
-    void deleteRemovesProductThenReportsNotFoundOnSecondAttempt() {
+    void deleteProduct() {
         assertEquals("NoCode", ProductManager.delete(""));
 
         ProductManager.addProduct("P911", "Brake Cable Assembly", "TVS", "540", "25", "Brakes", "2024/02/22", "brake_cable.jpg");
@@ -78,8 +70,7 @@ class ProductManagerTest {
     }
 
     @Test
-    @DisplayName("updates a product's fields and saves the changes")
-    void updateChangesFieldsAndPersistsThem() {
+    void updateProduct() {
         try {
             ProductManager.addProduct("P912", "Indicator Lamp 12V", "Philips", "310", "20", "Electrical", "2024/02/25", "indicator_lamp.jpg");
 

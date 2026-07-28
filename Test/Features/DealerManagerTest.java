@@ -1,7 +1,6 @@
 package Features;
 
 import Model.Dealers;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
@@ -11,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class DealerManagerTest {
 
     @Test
-    @DisplayName("loads all the dealers from the real dealer file")
     void load() {
         Dealers[] dealers = DealerManager.load();
 
@@ -23,8 +21,7 @@ class DealerManagerTest {
     }
 
     @Test
-    @DisplayName("picks 4 different dealers at random")
-    void dealerRandomSelect() {
+    void randomSelect() {
         Dealers[] selected = DealerManager.DealerRandomSelect();
 
         assertNotNull(selected);

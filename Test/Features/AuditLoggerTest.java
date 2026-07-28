@@ -1,7 +1,6 @@
 package Features;
 
 import Cleaner.TextFileManager;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -9,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class AuditLoggerTest {
 
     @Test
-    @DisplayName("adds a timestamped line to the audit log")
     void log() {
         TextFileManager textFileManager = new TextFileManager();
         String[] before = textFileManager.read("audit_log.txt");
