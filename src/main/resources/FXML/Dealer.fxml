@@ -22,7 +22,7 @@
             <Button mnemonicParsing="false" onAction="#onResetClick" styleClass="secondary-button" text="Reset" />
          </children>
       </HBox>
-      <TableView fx:id="dealerTable" layoutX="40.0" layoutY="150.0" prefHeight="540.0" prefWidth="980.0">
+      <TableView fx:id="dealerTable" layoutX="40.0" layoutY="150.0" prefHeight="540.0" prefWidth="980.0" styleClass="styled-table">
          <columns>
             <TableColumn fx:id="codeColumn" prefWidth="200.0" text="Code" />
             <TableColumn fx:id="nameColumn" prefWidth="300.0" text="Name" />

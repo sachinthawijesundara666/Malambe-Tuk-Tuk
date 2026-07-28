@@ -21,3 +21,27 @@
 2026-07-28 09:48:21 - Threshold Changed P007
 2026-07-28 09:48:28 - Threshold Changed P007
 2026-07-28 09:48:34 - Threshold Changed P007
+2026-07-28 17:10:04 - JUnit Test Action
+2026-07-28 17:10:04 - Item Added P902
+2026-07-28 17:10:04 - Threshold Changed P902
+2026-07-28 17:10:04 - Item Deleted P902
+2026-07-28 17:10:04 - Item Added P904
+2026-07-28 17:10:04 - Item Deleted P904
+2026-07-28 17:10:04 - Item Added P905
+2026-07-28 17:10:04 - Item Updated P905
+2026-07-28 17:10:04 - Item Deleted P905
+2026-07-28 17:10:04 - Item Added P903
+2026-07-28 17:10:04 - Item Deleted P903
+2026-07-28 17:28:16 - Month-End Stock Audit Completed
+2026-07-28 17:28:16 - Item Added P914
+2026-07-28 17:28:16 - Item Deleted P914
+2026-07-28 17:28:16 - Item Added P913
+2026-07-28 17:28:16 - Threshold Changed P913
+2026-07-28 17:28:16 - Item Deleted P913
+2026-07-28 17:28:16 - Item Added P911
+2026-07-28 17:28:16 - Item Deleted P911
+2026-07-28 17:28:16 - Item Added P912
+2026-07-28 17:28:16 - Item Updated P912
+2026-07-28 17:28:16 - Item Deleted P912
+2026-07-28 17:28:16 - Item Added P910
+2026-07-28 17:28:16 - Item Deleted P910
