@@ -39,8 +39,6 @@ class InventoryControllerTest {
         groupAndSortByCategory.setAccessible(true);
         Products[] result = (Products[]) groupAndSortByCategory.invoke(new InventoryController(), new Object[]{products});
 
-        // Engine appeared first in the input, so its (code-sorted) group comes first,
-        // followed by the Bodywork group -- no interleaving between categories.
         assertEquals("P011", result[0].getCode());
         assertEquals("P018", result[1].getCode());
         assertEquals("P015", result[2].getCode());

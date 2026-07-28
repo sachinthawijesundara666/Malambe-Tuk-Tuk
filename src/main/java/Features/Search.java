@@ -6,7 +6,6 @@ import java.util.ArrayList;
 public class Search {
     public static Products[] search(Products[] products, String keyword, boolean lowStock, Double minPrice, Double maxPrice, String category){
         ArrayList<Products> result = new ArrayList<>();
-
         for(Products product : products){
             boolean match = true;
             if(keyword != null && !keyword.isEmpty()){
@@ -15,7 +14,6 @@ public class Search {
                     match = false;
                 }
             }
-
             if(lowStock){
                 if(product.getQuantity() >= product.getThreshold()){
                     match = false;

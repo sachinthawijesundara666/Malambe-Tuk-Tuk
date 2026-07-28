@@ -7,8 +7,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ProductManagerTest {
 
-    // ---- TC-INV: Invalid input handling ----
-
     @Test
     void addProductRejectsMalformedCode() {
         String result = ProductManager.addProduct("P9X9", "Rear Shock Absorber", "Bajaj", "2650", "6", "Bodywork", "2024/02/20", "shock_absorber.jpg");
@@ -32,8 +30,6 @@ class ProductManagerTest {
             ProductManager.delete("P910");
         }
     }
-
-    // ---- TC-MOF / real-data parsing ----
 
     @Test
     void loadParsesRealLegacyFileAndHandlesMissingBrand() {

@@ -53,8 +53,6 @@ class CartManagerTest {
         assertEquals("QuantityError", CartManager.setQuantity(inBasket, airFilter, 40));
     }
 
-    // ---- TC-CD: Cart discount rules ----
-
     @Test
     void bulkDiscountAppliesAtQuantityThree() {
         Products tyreTube = new Products("P030", "Tyre Tube 3.00-10", "CEAT", 850.0, 20, "Bodywork", "2024/01/05", "tyre_tube.jpg", 5);
@@ -92,10 +90,6 @@ class CartManagerTest {
 
     @Test
     void synergyDiscountDoesNotApplyWhenCategoryCaseDiffers() {
-        // Documents a real limitation: CartManager.Total() compares category with a
-        // case-sensitive .equals("engine")/.equals("electrical"), so the capitalised
-        // category text actually stored in Inventory.txt ("Engine", "Electrical")
-        // never triggers the synergy discount.
         Products radiatorFan = new Products("P034", "Radiator Cooling Fan", "Bajaj", 300.0, 10, "Engine", "2024/01/05", "radiator_fan.jpg", 5);
         Products batteryClamp = new Products("P035", "Battery Terminal Clamp", "Local", 300.0, 10, "Electrical", "2024/01/05", "battery_clamp.jpg", 5);
         CartManager.AddCart(radiatorFan, 1);
@@ -106,8 +100,6 @@ class CartManagerTest {
         assertTrue(result.contains("No Discounts Applied"));
         assertTrue(result.contains("Total: Rs.600.00"));
     }
-
-    // ---- TC-SD: Stock deduction ----
 
     @Test
     void checkoutOnEmptyBasketIsRejected() {

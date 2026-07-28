@@ -6,7 +6,7 @@ import Cleaner.TextFileManager;
 
 public class ProductManager {
 
-    //Adds new row to txt file db
+
     public static String addProduct(String code, String name, String brand, String price, String quantity, String detail, String date, String picture){
         int threshold = 10;
         if (code != null && !code.isEmpty()){
@@ -60,7 +60,7 @@ public class ProductManager {
         return "Success";
     }
 
-    //Loading all Data into objects
+
     public static Products[] load(String Location){
 
         Products[] productlist;
@@ -118,7 +118,8 @@ public class ProductManager {
         }
         return productlist;
     }
-    //Loads From the new file
+
+
     public static Products[] loadFromNewFile() {
 
         Products[] legacyProducts = load("inventory_legacy.txt");
@@ -191,7 +192,7 @@ public class ProductManager {
         return load("Inventory.txt");
     }
 
-    //Deleting data
+
     public static String delete(String code){
         if (code == null || code.isEmpty()){
             return "NoCode";
