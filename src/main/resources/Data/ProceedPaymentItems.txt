@@ -1,2 +1,4 @@
 P010, Rear View Mirror, null, 800.0, 10, Bodywork, mirror.png
 
+P007, 3-Wheeler Canopy Cover, Local, 8500.5, 1, BODYWORK, canopy.png
+

@@ -6,5 +6,5 @@ P005, Clutch Cable Bajaj RE, Bajaj, 950.0, 12, ENGINE, 2024/02/01, cl_cable.jpg,
 P006, Headlight Bulb 12V, null, 450.0, 30, ELECTRICAL, 2023/11/20, hl_bulb.jpg, 10
 P009, Ignition Coil 2-Stroke, Bajaj, 2200.0, 18, electrical, 2023/09/01, null, 10
 P010, Rear View Mirror, null, 800.0, 35, Bodywork, 2023/10/10, mirror.png, 10
-P007, 3-Wheeler Canopy Cover, Local, 8500.5, 5, BODYWORK, 2023/08/15, canopy.png, 10
+P007, 3-Wheeler Canopy Cover, Local, 8500.5, 4, BODYWORK, 2023/08/15, canopy.png, 6
 P008, Piaggio Ape Filter, Piaggio, 1100.0, 0, Engine, 2024/02/28, filter_ape.jpeg, 10
