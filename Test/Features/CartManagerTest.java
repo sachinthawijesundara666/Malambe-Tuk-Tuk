@@ -97,8 +97,8 @@ class CartManagerTest {
     }
 
     @Test
-    @DisplayName("misses the synergy discount when the category is capitalised")
-    void synergyDiscountDoesNotApplyWhenCategoryCaseDiffers() {
+    @DisplayName("applies the synergy discount even when the category is capitalised")
+    void synergyDiscountAppliesRegardlessOfCategoryCase() {
         Products radiatorFan = new Products("P034", "Radiator Cooling Fan", "Bajaj", 300.0, 10, "Engine", "2024/01/05", "radiator_fan.jpg", 5);
         Products batteryClamp = new Products("P035", "Battery Terminal Clamp", "Local", 300.0, 10, "Electrical", "2024/01/05", "battery_clamp.jpg", 5);
         CartManager.AddCart(radiatorFan, 1);
@@ -106,8 +106,8 @@ class CartManagerTest {
 
         String result = CartManager.Total();
 
-        assertTrue(result.contains("No Discounts Applied"));
-        assertTrue(result.contains("Total: Rs.600.00"));
+        assertTrue(result.contains("Synergy Discount Applied"));
+        assertTrue(result.contains("Total: Rs.540.00"));
     }
 
     @Test

@@ -86,5 +86,4 @@ This runs the full JUnit 5 suite (48 tests) covering the Cleaner, Features, and 
 
 ## Known limitations
 
-- The cart's synergy discount checks `category.equals("engine")` / `.equals("electrical")` in lowercase specifically, so a category stored capitalised (e.g. `"Engine"`, as it is in the live inventory) will not trigger it. This is a documented, tested limitation rather than a silently patched bug.
 - `TextFileManager` resolves data files relative to the working directory, not the classpath, so the packaged app is not location-independent — it must be launched from the project root.
